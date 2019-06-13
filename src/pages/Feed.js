@@ -101,10 +101,8 @@ export default class Feed extends Component {
                 </View>
               </View>
               <Text style={styles.likes}>{item.likes} curtidas</Text>
-              <Text style={styles.description}>
-                {item.description}
-              </Text>
-              <Text style={styles.hashtags}>{item.hashtags} curtidas</Text>
+              <Text style={styles.description}>{item.description}</Text>
+              <Text style={styles.hashtags}>{item.hashtags}</Text>
             </View>
           )}
         />
