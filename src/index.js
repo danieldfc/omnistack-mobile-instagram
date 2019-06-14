@@ -1,9 +1,9 @@
-import React from "react";
-import { YellowBox } from "react-native";
+import React from 'react';
+import { YellowBox } from 'react-native';
 
-YellowBox.ignoreWarnings(["Unrecognized WebSocket"]);
+import Routes from './routes';
 
-import Routes from "./routes";
+YellowBox.ignoreWarnings(['Unrecognized WebSocket']);
 
 export default function App() {
   return <Routes />;

@@ -1,60 +1,48 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  FlatList,
-  StyleSheet
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet } from 'react-native';
 
-import io from "socket.io-client";
+import io from 'socket.io-client';
 
-import api from "../services/api";
+import api from '../services/api';
 
-import camera from "../assets/camera.png";
-import more from "../assets/more.png";
-import like from "../assets/like.png";
-import comment from "../assets/comment.png";
-import send from "../assets/send.png";
+import camera from '../assets/camera.png';
+import more from '../assets/more.png';
+import like from '../assets/like.png';
+import comment from '../assets/comment.png';
+import send from '../assets/send.png';
 
 export default class Feed extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerRight: (
-      <TouchableOpacity
-        style={{ marginRight: 20 }}
-        onPress={() => navigation.navigate("New")}
-      >
+      <TouchableOpacity style={{ marginRight: 20 }} onPress={() => navigation.navigate('New')}>
         <Image source={camera} />
       </TouchableOpacity>
-    )
+    ),
   });
 
   state = {
-    feed: []
+    feed: [],
   };
 
   async componentDidMount() {
     this.registerToSocket();
 
-    const response = await api.get("posts");
+    const response = await api.get('posts');
 
     this.setState({ feed: response.data });
   }
 
   registerToSocket = () => {
-    const socket = io("http://192.168.0.102:3333");
+    const socket = io('http://192.168.0.102:3333');
 
-    socket.on("post", newPost => {
+    socket.on('post', newPost => {
       this.setState({ feed: [newPost, ...this.state.feed] });
     });
 
-    socket.on("like", likePost => {
+    socket.on('like', likePost => {
       this.setState({
-        feed: this.state.feed.map(post =>
-          post._id === likePost._id ? likePost : post
-        )
+        feed: this.state.feed.map(post => (post._id === likePost._id ? likePost : post)),
       });
     });
   };
@@ -81,7 +69,7 @@ export default class Feed extends Component {
               <Image
                 style={styles.feedImage}
                 source={{
-                  uri: `http://192.168.0.102:3333/files/${item.image}`
+                  uri: `http://192.168.0.102:3333/files/${item.image}`,
                 }}
               />
               <View style={styles.feedItemFooter}>
@@ -113,49 +101,49 @@ export default class Feed extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   feedItem: {
-    marginTop: 20
+    marginTop: 20,
   },
   feedItemHeader: {
     paddingHorizontal: 15,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   name: {
     fontSize: 14,
-    color: "#000"
+    color: '#000',
   },
   place: {
     fontSize: 12,
-    color: "#666",
-    marginTop: 2
+    color: '#666',
+    marginTop: 2,
   },
   feedImage: {
-    width: "100%",
+    width: '100%',
     height: 400,
-    marginVertical: 15
+    marginVertical: 15,
   },
   feedItemFooter: {
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
   actions: {
-    flexDirection: "row"
+    flexDirection: 'row',
   },
   action: {
-    marginRight: 8
+    marginRight: 8,
   },
   likes: {
     marginTop: 15,
-    fontWeight: "bold"
+    fontWeight: 'bold',
   },
   description: {
     lineHeight: 18,
-    color: "#000"
+    color: '#000',
   },
   hashtags: {
-    color: "#7159c1"
-  }
+    color: '#7159c1',
+  },
 });

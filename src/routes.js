@@ -1,25 +1,25 @@
-import React from "react";
-import { createAppContainer, createStackNavigator } from "react-navigation";
+import React from 'react';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
 
-import { Image } from "react-native";
-import logo from "./assets/logo.png";
+import { Image } from 'react-native';
+import logo from './assets/logo.png';
 
-import Feed from "./pages/Feed";
-import New from "./pages/New";
+import Feed from './pages/Feed';
+import New from './pages/New';
 
 export default createAppContainer(
   createStackNavigator(
     {
       Feed,
-      New
+      New,
     },
     {
       defaultNavigationOptions: {
-        headerTintColor: "#000",
+        headerTintColor: '#000',
         headerTitle: <Image style={{ marginHorizontal: 20 }} source={logo} />,
-        headerBackTitle: null
+        headerBackTitle: null,
       },
-      mode: "modal"
-    }
-  )
+      mode: 'modal',
+    },
+  ),
 );
